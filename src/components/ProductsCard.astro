@@ -1,0 +1,15 @@
+---
+
+import { Picture } from "astro:assets";
+const {title , description} = Astro.props;
+---
+
+<div class="border rounded-lg shadow-lg bg-white p-4 flex flex-col items-center">
+  
+    <slot name="picture"/>
+
+    <div class="my-10">
+        <h2 class="text-lg text-brand-brown">{title}</h2>
+        <p class="text-sm text-brand-sand">{description}</p>
+    </div>
+</div>

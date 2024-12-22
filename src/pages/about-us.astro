@@ -1,0 +1,69 @@
+---
+import Layout from "~/layouts/Layout.astro";
+import Section from "~/components/Section.astro";
+import Hero from "~/components/Hero.astro";
+import { Picture } from "astro:assets";
+import ButtonCallUs from "~/components/ButtonCallUs.astro";
+import Article from "~/components/Article.astro";
+import { socialMedia} from "~/data/config";
+import WideImage from "~/components/WideImage.astro";
+
+// Images
+import CoffeeBeans from "~/assets/images/coffeeBeans.jpg";
+import CoffeeWideImage from "~/assets/images/coffeWideImage.jpg";
+---
+
+<Layout>
+	<Section class:list={"bg-white"}>
+		<Hero>
+			<div slot="hero-content-left" class="prose max-w-none max-lg:order-1">
+				<h1 class="font-black text-brand-brown">زندگي را جرعه جرعه بنوش </h1>
+
+				<p>
+			در کافه رستری دان حیات، قهوه برای ما فقط یک نوشیدنی نیست، بلکه یک تجربه است. همیشه سعی شده بهترین دانه‌های سبز اسپشیالتی را انتخاب کنیم و با دقت رست کنیم تا طعمی متمایز و متعادل خلق شود، هم برای اسپرسو و هم برای دمی.
+				</p>			
+			</div>
+
+			<div slot="hero-content-right">
+				<Picture
+					class:list={" w-100"}
+					src={CoffeeBeans}
+					height={600}
+					formats={["avif", "webp"]}
+					alt="A description of my image."
+					loading={"eager"}
+					fetchpriority={"high"}
+				/>
+			</div>
+		</Hero>
+	</Section>
+	
+
+	<Section class:list={'bg-white'}>
+		<div class="relative">
+			<WideImage image={CoffeeWideImage} alt="Just an image" class:list={"aspect-video lg:aspect-[16/6] mb-20"} />
+			<div class="absolute top-0 left-0 p-4 text-brand-sand font-bold w-1/2" >
+			  <h2 class="text-lg">ما در کافه رستری دان حیات به قهوه فراتر از یک محصول نگاه می‌کنیم. از انتخاب دانه‌های سبز باکیفیت گرفته تا رست تخصصی، هر مرحله را با دقت و وسواس انجام می‌دهیم تا قهوه‌ای ایده‌آل ارائه دهیم.
+			  </h2>
+			</div>
+		</div>
+
+		
+		<Article>
+			<h3 class="text-brand-brown">به ما بپیوندید</h3>
+			<p>
+				چه به دنبال دانه‌های تازه برای کسب و کار خود باشید، چه بخواهید یک فنجان قهوه خاص را در کافه ما تجربه کنید،<strong> دان حیات</strong>، همراه شما در مسیر یک قهوه عالی است. 
+			</p>
+			<div class="mt-8 flex items-center gap-x-8">
+				<ButtonCallUs/>
+			</div>
+			<div class="mt-8 items-center hover:-rotate-1 transition duration-300">
+				<a href="https://instagram.com/DunHayat.CoffeeRaostering" target="_blank" rel="noopener noreferrer">
+					<button class="btn btn-instagram">
+					  <i class="fab fa-instagram custom-icon"></i> ما را در اینستاگرام دنبال کنید
+					</button>
+				</a>
+			</div>	
+		</Article>
+	</Section>
+</Layout>

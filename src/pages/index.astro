@@ -1,0 +1,187 @@
+---
+import Layout from "~/layouts/Layout.astro";
+import Section from "~/components/Section.astro";
+import Hero from "~/components/Hero.astro";
+import { Picture, Image } from "astro:assets";
+import Button from "~/components/Button.astro";
+import ButtonCallUs from "~/components/ButtonCallUs.astro";
+import Grid from "~/components/Grid.astro";
+import Heading from "~/components/Heading.astro";
+import WideImage from "~/components/WideImage.astro";
+
+
+// Images
+
+import Beans3 from "~/assets/images/beans3.png";
+import Beans4 from "~/assets/images/beans4.png";
+import Coffee from "~/assets/images/coffee.jpg";
+import Arabika from "~/assets/images/100 arabika.jpeg";
+import Robosta from "~/assets/images/100 robosta.jpeg";
+import Turkishcoffee from "~/assets/images/turkish coffee.jpeg";
+import Logo from "~/assets/images/LOGO dunhayatt.svg";
+
+---
+
+<Layout title="Home" pageTitle="Home" description="Welcome">
+	<Section class:list={"bg-white"}>
+		<Hero>
+			<div slot="hero-content-left" class="prose max-w-none max-lg:order-1">
+				<h1 class="text-brand-brown">روزت رو با يه قهوه خوب شروع كن</h1>
+				<p>
+					در کافه رستری دان حیات، همه چیز از یک دانه سبز باکیفیت شروع می‌شود. ما با دقت بهترین‌ها را انتخاب می‌کنیم و با رست‌های تخصصی، قهوه‌ای بی‌نقص برای اسپرسو و دمی ارائه می‌دهیم.
+
+اگر به دنبال قهوه‌ای متفاوت هستید، هم برای تهیه دانه‌های رست‌شده و هم برای تجربه یک فنجان قهوه عالی، دان حیات همیشه در دسترس شماست.
+				</p>
+
+			</div>
+			<div slot="hero-content-right">
+				<Picture
+					class:list={"mx-auto"}
+					src={Beans4}
+					height={600}
+					formats={["avif", "jpeg", "png"]}
+					alt="A description of my image."
+					loading={"eager"}
+					fetchpriority={"high"}
+				/>
+			</div>
+		</Hero>
+	</Section>
+
+	<WideImage image={Beans3} alt="Just an image" class:list={"aspect-video lg:aspect-[16/6]"} />
+
+	<Section class:list={"bg-white mt-10"}>
+		<Heading>
+			<h2 slot="heading-title" class="font-black text-brand-brown h3">طعم خوش قهوه را زندگی كن</h2>
+			<p slot="heading-content">
+				اين شعار روی پاكتهای قهوه ما هستش.
+			</p>
+		</Heading>
+
+		<Grid>
+			<div slot="grid-content-1">
+				<div class="flex flex-col items-center prose text-center">
+						<Picture
+						class:list={"object-contain md:w-96 md:h-96 w-36 h-36"}
+						src={Arabika}
+						formats={["jpeg", "webp", "png"]}
+						alt="A description of my image."
+					/>
+					<h3 class="h4 mt-0 font-black text-brand-sand"> قهوه میکس <br/> (۱۰۰ عربیکا)</h3>
+				</div>
+			</div>
+
+			<div slot="grid-content-2">
+				<div class="flex flex-col items-center prose text-center">
+					<Picture
+						class:list={"object-contain md:w-96 md:h-96 w-36 h-36"}
+						src={Turkishcoffee}
+						formats={["jpeg", "webp", "png"]}
+						alt="A description of my image."
+					/>
+					<h3 class="h4 mt-0 font-black text-brand-sand">قهوه ترک</h3>
+				</div>
+			</div>
+
+			<div slot="grid-content-3">
+				<div class="flex flex-col items-center prose text-center">
+					<Picture
+						class:list={"object-contain md:w-96 md:h-96 w-36 h-36"}
+						src={Robosta}
+						formats={["jpeg", "webp", "png"]}
+						alt="A description of my image."
+					/>
+					<h3 class="h4 mt-0 font-black text-brand-sand">قهوه میکس <br/> (۱۰۰ روبوستا)</h3>
+				</div>
+			</div>
+		</Grid>
+
+
+		<div class="my-20 mx-auto text-center">
+			<Button url="/products">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 20 20"
+					fill="currentColor"
+					class="size-5 inline-block"
+					aria-hidden="true"
+				>
+					<path
+						fill-rule="evenodd"
+						d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+						clip-rule="evenodd"></path>
+				</svg>
+				محصولات ما
+			</Button>
+		</div>
+
+		
+	</Section>
+
+	<Section class:list={"bg-white"}>
+		<Hero>
+			<div slot="hero-content-left" class="prose lg:order-2">
+				<h2 class="font-black text-brand-brown">در کافه رستری دان حیات، قهوه یعنی دقت، دانش و عشق</h1>
+
+				<p>
+					در کافه‌رستری دان حیات، ما به کیفیت متعهدیم. دانه‌های سبز با کیفیت و اسپشیالتی را با دقت انتخاب می‌کنیم و با رست‌های تخصصی، قهوه‌ای متناسب با اسپرسو و دمی ارائه می‌دهیم.
+ <br/> می‌خواهید دانه‌های تازه برای کسب و کار خود بخرید؟ یا حس دلنشین قهوه را در خانه بچشید؟ و یا یک فنجان قهوه خاص را در کافه ما تجربه کنید؟ دان حیات همیشه بهترین را برای شما آماده دارد.
+
+				</p>
+
+			</div>
+			<div slot="hero-content-right">
+				<Picture
+					class:list={"mx-auto"}
+					src={Coffee}
+					height={600}
+					formats={["avif", "webp", "jpg"]}
+					alt="A description of my image."
+				/>
+			</div>
+		</Hero>
+	</Section>
+
+	<!-- Contact -->
+	<Section class:list={"bg-brand-sand/40 relative mb-20"}>
+		<div class="py-16">
+			<Hero>
+				<div slot="hero-content-left" class="prose max-w-none order-2">
+					<h2 slot="heading-title" class="font-black h4 text-center text-brand-brown mt-0 mb-4">به ما سر بزنید.<br/> منتظر حضور گرم شما هستیم.</h2>
+					<div slot="heading-content">
+						<p class="text-center">
+						آدرس : تهران &#x60C; شهرک آپادانا&#x60C; پاساژ زنبق&#x60C; پلاک ۱۴
+						</p>
+					</div>
+				</div>
+
+				<div slot="hero-content-right">
+					<Picture src={Logo} alt="Review authors" class="mx-auto rounded-full w-64 h-64 object-cover" />
+				</div>
+			</Hero>
+		</div>
+
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 1440 320"
+			class="absolute h-40 w-full top-0 inset-x-0 rotate-180"
+			preserveAspectRatio="none"
+			><path
+				fill="#ffffff"
+				fill-opacity="1"
+				d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+			></path>
+		</svg>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 1440 320"
+			class="absolute h-40 w-full bottom-0 inset-x-0"
+			preserveAspectRatio="none"
+			><path
+				fill="#ffffff"
+				fill-opacity="1"
+				d="M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,250.7C1248,256,1344,288,1392,304L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+			></path>
+		</svg>
+	</Section>
+</Layout>
