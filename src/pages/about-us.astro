@@ -7,10 +7,12 @@ import ButtonCallUs from "~/components/ButtonCallUs.astro";
 import Article from "~/components/Article.astro";
 import { socialMedia} from "~/data/config";
 import WideImage from "~/components/WideImage.astro";
+import {snapp} from "~/data/config";
 
 // Images
 import CoffeeBeans from "~/assets/images/coffeeBeans.jpg";
 import CoffeeWideImage from "~/assets/images/coffeWideImage.jpg";
+import Snapp from "~/assets/images/SnappLogo.svg";
 ---
 
 <Layout>
@@ -63,6 +65,16 @@ import CoffeeWideImage from "~/assets/images/coffeWideImage.jpg";
 					  <i class="fab fa-instagram custom-icon"></i> ما را در اینستاگرام دنبال کنید
 					</button>
 				</a>
+			</div>	
+			<div class=" flex items-center hover:-rotate-1 transition duration-300">
+				<a href={snapp.href} target="_blank" rel="noopener noreferrer">
+					<Picture 
+					class="h-16 w-auto"
+					src={Snapp}
+					alt="snapp link">
+				</Picture>	
+				</a>
+				<p class="text-base/4">خرید از ما</p>	
 			</div>	
 		</Article>
 	</Section>
