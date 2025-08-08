@@ -17,6 +17,7 @@
     "@types/alpinejs": "^3.13.11",
     "alpinejs": "^3.14.7",
     "astro": "^5.1.1",
+    "caniuse-lite": "^1.0.30001733",
     "glightbox": "^3.3.0",
     "masonry-layout": "^4.2.2",
     "svelte": "^5.23.2",
