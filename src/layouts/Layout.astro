@@ -3,6 +3,7 @@ import "~/styles/tailwind.css";
 import { ClientRouter } from "astro:transitions";
 import Header from "~/components/Header.astro";
 import Footer from "~/components/Footer.astro";
+import CartInit from "~/components/CartInit.astro";
 const { pageTitle, title, description } = Astro.props;
 const baseUrl = `${Astro.url.protocol}//${Astro.url.host}`;
 import { siteLang, themeColor } from "~/data/config";
@@ -22,7 +23,7 @@ import { siteLang, themeColor } from "~/data/config";
 			<!-- Add FontAwesome to your project -->
 		<link
 			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+			href="/fonts/fontawesome/css/all.css"
 		/>
 	
 		<meta name="msapplication-TileColor" content="#ffffff" />
@@ -49,5 +50,6 @@ import { siteLang, themeColor } from "~/data/config";
 			<slot />
 		</main>
 		<Footer />
+		<CartInit />
 	</body>
 </html>

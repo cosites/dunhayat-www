@@ -2,28 +2,12 @@
 import Layout from "~/layouts/Layout.astro";
 import Section from "~/components/Section.astro";
 import Heading from "~/components/Heading.astro";
-import ProductsCard from "~/components/ProductsCard.astro";
+import ProductCard from "~/components/ProductCard.astro";
 import Grid from "~/components/Grid.astro";
-import { Picture } from "astro:assets";
-
-
-//images
-import Arabika from "~/assets/images/100 arabika.jpeg";
-import Robosta from "~/assets/images/100 robosta.jpeg";
-import Brazil from "~/assets/images/arabika brazil.jpeg";
-import Colombia from "~/assets/images/arabika colombia.jpeg";
-import Coffem from "~/assets/images/coffee meet.jpeg";
-import HotChocolate from "~/assets/images/hot chocolate.jpeg";
-import InstantCoffee from "~/assets/images/instant coffee.jpeg";
-import MixCoffee from "~/assets/images/mix coffee.jpeg";
-import TurkishCoffee from "~/assets/images/turkish coffee.jpeg";
-
-
+import { products } from "~/data/products";
 ---
 
-
-
-<Layout>
+<Layout pageTitle="محصولات - دان حیات" title="محصولات" description="محصولات قهوه دان حیات">
 	<Section class:list={"bg-white"}>
 		<Heading>
 			<h4 slot="heading-title" class="font-black text-brand-brown h3">طعم خوش قهوه را زندگی كن</h4>
@@ -32,145 +16,104 @@ import TurkishCoffee from "~/assets/images/turkish coffee.jpeg";
 			</p>
 		</Heading>
 
-		<Grid>
-		<div slot="grid-content-1"> 
-			<ProductsCard title="قهوه میکس (۱۰۰ عربیکا)">
-				<div slot="picture">
-					<a href="https://superapp.snappfood.ir/%D9%81%D8%B1%D9%88%D8%B4%DA%AF%D8%A7%D9%87/menu/%DA%A9%D8%A7%D9%81%D9%87_%D8%B1%D8%B3%D8%AA%D8%B1%DB%8C_%D8%AF%D8%A7%D9%86_%D8%AD%DB%8C%D8%A7%D8%AA-r-qydw9x/product/%D8%AF%D8%A7%D9%86%D9%87_%D9%82%D9%87%D9%88%D9%87_%D9%85%DB%8C%DA%A9%D8%B3_100_%D8%AF%D8%B1%D8%B5%D8%AF_%D8%B9%D8%B1%D8%A8%DB%8C%DA%A9%D8%A7-pp:546857?from_list=1&is_pickup=0&GAParams=&product_id=28072186%2C28072197%2C28072196">
-						<Picture
-						class:list={"object-contain md:w-96 md:h-96 w-36 h-36"}
-						src={Arabika}
-						formats={["jpeg", "webp", "png"]}
-						alt="arabika"
-						/>
-					</a>
-				</div>
-			</ProductsCard>
+		<!-- Products Grid -->
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+			{products.map((product) => (
+				<ProductCard product={product} />
+			))}
 		</div>
-
-		<div slot="grid-content-1"> 
-			<ProductsCard title="قهوه میکس (۱۰۰ روبوستا)">
-				<div slot="picture">
-					<a href="https://superapp.snappfood.ir/%D9%81%D8%B1%D9%88%D8%B4%DA%AF%D8%A7%D9%87/menu/%DA%A9%D8%A7%D9%81%D9%87_%D8%B1%D8%B3%D8%AA%D8%B1%DB%8C_%D8%AF%D8%A7%D9%86_%D8%AD%DB%8C%D8%A7%D8%AA-r-qydw9x/product/%D8%AF%D8%A7%D9%86%D9%87_%D9%82%D9%87%D9%88%D9%87_100_%D8%AF%D8%B1%D8%B5%D8%AF_%D8%B1%D9%88%D8%A8%D9%88%D8%B3%D8%AA%D8%A7-pp:248503?from_list=1&is_pickup=0&GAParams=&product_id=28072824%2C28128713%2C28128714">
-						<Picture
-						class:list={"object-contain md:w-96 md:h-96 w-36 h-36"}
-						src={Robosta}
-						formats={["jpeg", "webp", "png"]}
-						alt="robosta"
-					    />
-					</a>					
-				</div>
-			</ProductsCard>
-		</div>
-
-		<div slot="grid-content-1"> 
-			<ProductsCard title="قهوه عربیکا (برزیل)">
-				<div slot="picture">
-					<a href="https://superapp.snappfood.ir/caffe/menu/%DA%A9%D8%A7%D9%81%D9%87_%D8%B1%D8%B3%D8%AA%D8%B1%DB%8C_%D8%AF%D8%A7%D9%86_%D8%AD%DB%8C%D8%A7%D8%AA-r-qydw9x?from_list=1&is_pickup=0&GAParams=">
-						<Picture
-						class:list={"object-contain md:w-96 md:h-96 w-36 h-36"}
-						src={Brazil}
-						formats={["jpeg", "webp", "png"]}
-						alt="arabika brazil"
-					    />
-					</a>
-				</div>
-			</ProductsCard>
-		</div>
-		</Grid>
-
-		<Grid>
-			<div slot="grid-content-1"> 
-				<ProductsCard title="قهوه عربیکا (کلومبیا)">
-					<div slot="picture">
-						<a href="https://superapp.snappfood.ir/%D9%81%D8%B1%D9%88%D8%B4%DA%AF%D8%A7%D9%87/menu/%DA%A9%D8%A7%D9%81%D9%87_%D8%B1%D8%B3%D8%AA%D8%B1%DB%8C_%D8%AF%D8%A7%D9%86_%D8%AD%DB%8C%D8%A7%D8%AA-r-qydw9x/product/%D8%AF%D8%A7%D9%86%D9%87_%D9%82%D9%87%D9%88%D9%87_100_%D8%AF%D8%B1%D8%B5%D8%AF_%D8%B9%D8%B1%D8%A8%DB%8C%DA%A9%D8%A7-pp:178724?from_list=1&is_pickup=0&GAParams=&product_id=28072313%2C28128655%2C28128656">
-							<Picture
-							class:list={"object-contain md:w-96 md:h-96 w-36 h-36"}
-							src={Colombia}
-							formats={["jpeg", "webp", "png"]}
-							alt="arabika colombia"
-						    />
-						</a>						
-					</div>
-				</ProductsCard>
-			</div>
-	
-			<div slot="grid-content-1"> 
-				<ProductsCard title="کافی میت">
-					<div slot="picture">
-						<a href="https://superapp.snappfood.ir/caffe/menu/%DA%A9%D8%A7%D9%81%D9%87_%D8%B1%D8%B3%D8%AA%D8%B1%DB%8C_%D8%AF%D8%A7%D9%86_%D8%AD%DB%8C%D8%A7%D8%AA-r-qydw9x?from_list=1&is_pickup=0&GAParams=">
-							<Picture
-							class:list={"object-contain md:w-96 md:h-96 w-36 h-36"}
-							src={Coffem}
-							formats={["jpeg", "webp", "png"]}
-							alt="coffe meet"
-						    />
-						</a>	
-					</div>
-				</ProductsCard>
-			</div>
-	
-			<div slot="grid-content-1"> 
-				<ProductsCard title="هات چاکلت">
-					<div slot="picture">
-						<a href="https://superapp.snappfood.ir/caffe/menu/%DA%A9%D8%A7%D9%81%D9%87_%D8%B1%D8%B3%D8%AA%D8%B1%DB%8C_%D8%AF%D8%A7%D9%86_%D8%AD%DB%8C%D8%A7%D8%AA-r-qydw9x?from_list=1&is_pickup=0&GAParams=">
-							<Picture
-							class:list={"object-contain md:w-96 md:h-96 w-36 h-36"}
-							src={HotChocolate}
-							formats={["jpeg", "webp", "png"]}
-							alt="hot chocolate"
-						    />
-						</a>					
-					</div>
-				</ProductsCard>
-			</div>
-			</Grid>
-
-			<Grid>
-				<div slot="grid-content-1"> 
-					<ProductsCard title="قهوه فوری">
-						<div slot="picture">
-							<a href="https://superapp.snappfood.ir/caffe/menu/%DA%A9%D8%A7%D9%81%D9%87_%D8%B1%D8%B3%D8%AA%D8%B1%DB%8C_%D8%AF%D8%A7%D9%86_%D8%AD%DB%8C%D8%A7%D8%AA-r-qydw9x?from_list=1&is_pickup=0&GAParams=">
-								<Picture
-								class:list={"object-contain md:w-96 md:h-96 w-36 h-36"}
-								src={InstantCoffee}
-								formats={["jpeg", "webp", "png"]}
-								alt="instannt coffee"
-							    />
-							</a>							
-						</div>
-					</ProductsCard>
-				</div>
-		
-				<div slot="grid-content-1"> 
-					<ProductsCard title="قهوه میکس">
-						<div slot="picture">
-							<a href="https://superapp.snappfood.ir/caffe/menu/%DA%A9%D8%A7%D9%81%D9%87_%D8%B1%D8%B3%D8%AA%D8%B1%DB%8C_%D8%AF%D8%A7%D9%86_%D8%AD%DB%8C%D8%A7%D8%AA-r-qydw9x?from_list=1&is_pickup=0&GAParams=">
-								<Picture
-								class:list={"object-contain md:w-96 md:h-96 w-36 h-36"}
-								src={MixCoffee}
-								formats={["jpeg", "webp", "png"]}
-								alt="mix coffee"
-							    />
-							</a>							
-						</div>
-					</ProductsCard>
-				</div>
-		
-				<div slot="grid-content-1"> 
-					<ProductsCard title="قهوه ترک ">
-						<div slot="picture">
-							<a href="https://superapp.snappfood.ir/caffe/menu/%DA%A9%D8%A7%D9%81%D9%87_%D8%B1%D8%B3%D8%AA%D8%B1%DB%8C_%D8%AF%D8%A7%D9%86_%D8%AD%DB%8C%D8%A7%D8%AA-r-qydw9x?from_list=1&is_pickup=0&GAParams=">
-								<Picture
-								class:list={"object-contain md:w-96 md:h-96 w-36 h-36"}
-								src={TurkishCoffee}
-								formats={["jpeg", "webp", "png"]}
-								alt="turkish coffee"
-							    />
-							</a>						
-						</div>
-					</ProductsCard>
-				</div>
-				</Grid>
 	</Section>
 </Layout>
+
+<script>
+  // Import cart store
+  import { cartStore } from '../components/CartStore.js';
+  
+  // Initialize cart store when products page loads
+  if (typeof window !== 'undefined') {
+    // Initialize the cart store
+    cartStore.init();
+    
+    // Make cart store available globally
+    (window as any).cartStore = cartStore;
+    
+    // Set the ready flag
+    (window as any).cartStoreReady = true;
+    
+    // Dispatch the ready event for any components that are listening
+    window.dispatchEvent(new CustomEvent('cart-store-ready'));
+    
+    // Function to re-initialize all ProductCard instances
+    const reinitializeAllProductCards = () => {
+      if ((window as any).productCardRegistry) {
+        (window as any).productCardRegistry.forEach((productCard: any, productId: string) => {
+          productCard.isInitialized = false;
+          productCard.initialize();
+        });
+      }
+    };
+    
+    // Re-initialize on various navigation events
+    const setupNavigationHandlers = () => {
+      // 1. Astro view transitions (modern approach)
+      if (typeof document.startViewTransition === 'function') {
+        document.addEventListener('astro:page-load', () => {
+          setTimeout(reinitializeAllProductCards, 100);
+        });
+        
+        document.addEventListener('astro:after-swap', () => {
+          setTimeout(reinitializeAllProductCards, 100);
+        });
+      }
+      
+      // 2. Astro navigation events (fallback)
+      document.addEventListener('astro:before-preparation', () => {
+        // Navigation preparation started
+      });
+      
+      document.addEventListener('astro:after-preparation', () => {
+        // Navigation preparation completed
+      });
+      
+      // 3. Page visibility change (client-side navigation)
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          setTimeout(reinitializeAllProductCards, 100);
+        }
+      });
+      
+      // 4. Focus events (when user returns to tab)
+      window.addEventListener('focus', () => {
+        setTimeout(reinitializeAllProductCards, 100);
+      });
+      
+      // 5. Popstate events (browser back/forward)
+      window.addEventListener('popstate', () => {
+        setTimeout(reinitializeAllProductCards, 200);
+      });
+      
+      // 6. Periodic check for stale ProductCards (safety net)
+      setInterval(() => {
+        if ((window as any).productCardRegistry) {
+          const staleCards = Array.from((window as any).productCardRegistry.values()).filter(
+            (card: any) => !card.isInitialized || !card.getElements()
+          );
+          if (staleCards.length > 0) {
+            staleCards.forEach((card: any) => {
+              card.isInitialized = false;
+              card.initialize();
+            });
+          }
+        }
+      }, 5000); // Check every 5 seconds
+    };
+    
+    // Setup navigation handlers
+    setupNavigationHandlers();
+    
+    // Initial re-initialization for direct page loads
+    if (document.visibilityState === 'visible') {
+      setTimeout(reinitializeAllProductCards, 200);
+    }
+  }
+</script>

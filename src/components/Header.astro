@@ -2,6 +2,7 @@
 import { menuMain } from "~/data/menus.js";
 import Logo from "~/assets/images/LOGO.svg";
 import { Picture, Image } from "astro:assets";
+import CartIcon from "./CartIcon.astro";
 
 const rmTrailingSlash = (path: string): string => {
   return path.endsWith("/") && path.length > 1 
@@ -52,6 +53,7 @@ const pathname = rmTrailingSlash(Astro.url.pathname);
 						</a>
 					))
 				}
+				<CartIcon />
 			</div>
 		</nav>
 		<div class="lg:hidden" x-ref="dialog" x-show="open" x-cloak aria-modal="true">
