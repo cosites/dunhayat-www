@@ -10,6 +10,13 @@ export const cartStore = {
     if (savedCart) {
       this.items = JSON.parse(savedCart);
     }
+    
+    // Dispatch ready event
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('cart-store-ready', {
+        detail: { items: this.items }
+      }));
+    }
   },
 
   addItem(product, quantity = 1) {
@@ -55,6 +62,7 @@ export const cartStore = {
   clearCart() {
     this.items = [];
     this.saveCart();
+    this.refreshProductStates();
   },
 
   getTotalItems() {
@@ -80,10 +88,25 @@ export const cartStore = {
 
   toggleCart() {
     this.isOpen = !this.isOpen;
+    if (this.isOpen) {
+      // When opening cart, ensure data is fresh
+      this.refreshCartData();
+    }
   },
 
   closeCart() {
     this.isOpen = false;
+  },
+
+  refreshCartData() {
+    // Force a refresh of cart data when opened
+    const savedCart = sessionStorage.getItem('dunhayat-cart');
+    if (savedCart) {
+      this.items = JSON.parse(savedCart);
+    }
+    
+    // Dispatch update event to ensure UI is in sync
+    this.refreshProductStates();
   },
 
   showNotification(message) {
@@ -168,6 +191,11 @@ export const cartStore = {
     // Dispatch a custom event that components can listen to
     if (typeof window !== 'undefined') {
       window.dispatchEvent(new CustomEvent('cart-updated', {
+        detail: { items: this.items }
+      }));
+      
+      // Also dispatch a force update event for components that need it
+      window.dispatchEvent(new CustomEvent('force-cart-update', {
         detail: { items: this.items }
       }));
     }
