@@ -1,0 +1,298 @@
+---
+import type { Product } from "~/data/products";
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+---
+
+<div 
+  class="border rounded-lg shadow-lg bg-white p-4 flex flex-col items-center h-full" 
+  x-data="{
+    ...cartStore,
+    productId: '${product.id}',
+    productInCart: false,
+    quantity: 1
+  }" 
+  x-init="
+    init();
+    isInCart = isInCart(productId);
+    quantity = getItemQuantity(productId);
+  "
+>
+  <!-- Product Image -->
+  <div class="mb-4">
+    <img
+      class="object-contain md:w-96 md:h-96 w-36 h-36"
+      src={product.image}
+      alt={product.name}
+    />
+  </div>
+
+  <!-- Product Info -->
+  <div class="text-center mb-4 flex-1">
+    <h2 class="text-lg font-bold text-brand-brown mb-2">{product.name}</h2>
+    <p class="text-sm text-brand-sand mb-2">{product.description}</p>
+    
+    <!-- Product Details -->
+    <div class="text-xs text-gray-600 space-y-1 mb-3">
+      {product.weight && (
+        <div>وزن: {product.weight}</div>
+      )}
+      {product.origin && (
+        <div>مبدا: {product.origin}</div>
+      )}
+    </div>
+    
+    <!-- Price -->
+    <div class="text-xl font-bold text-brand-brown mb-4">
+      {new Intl.NumberFormat('fa-IR').format(product.price)} تومان
+    </div>
+  </div>
+
+  <!-- Dynamic Add to Cart / Quantity Controls -->
+  <div class="w-full">
+    <!-- Add to Cart Button -->
+    <button
+      id={`add-to-cart-${product.id}`}
+      class="w-full bg-brand-sand hover:bg-brand-sand/80 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
+      disabled={!product.inStock}
+    >
+      <i class="fa-solid fa-cart-plus text-lg"></i>
+      <span>افزودن به سبد خرید</span>
+    </button>
+
+    <!-- Quantity Controls (initially hidden) -->
+    <div id={`quantity-controls-${product.id}`} class="w-full hidden">
+      <div class="flex items-center justify-center space-x-3 bg-gray-50 rounded-lg p-3">
+        <!-- Minus Button -->
+        <button
+          id={`minus-${product.id}`}
+          class="w-8 h-8 bg-brand-brown text-white rounded-full flex items-center justify-center hover:bg-brand-brown/80 transition-colors"
+          title="کاهش تعداد"
+        >
+          <i class="fa-solid fa-minus text-sm"></i>
+        </button>
+
+        <!-- Quantity Display -->
+        <div class="text-lg font-bold text-brand-brown min-w-[3rem] text-center">
+          <span id={`quantity-${product.id}`}>1</span>
+        </div>
+
+        <!-- Plus Button -->
+        <button
+          id={`plus-${product.id}`}
+          class="w-8 h-8 bg-brand-sand text-white rounded-full flex items-center justify-center hover:bg-brand-brown/80 transition-colors"
+          title="افزایش تعداد"
+        >
+          <i class="fa-solid fa-plus text-sm"></i>
+        </button>
+      </div>
+
+      <!-- Remove from Cart Button -->
+      <button
+        id={`remove-${product.id}`}
+        class="w-full mt-2 bg-red-100 hover:bg-red-200 text-red-600 font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2"
+        title="حذف از سبد خرید"
+      >
+        <i class="fa-solid fa-trash text-sm"></i>
+        <span>حذف از سبد خرید</span>
+      </button>
+    </div>
+
+    <!-- Out of Stock Message -->
+    {!product.inStock && (
+      <div class="text-center mt-2 text-red-500 text-sm">موجود نیست</div>
+    )}
+  </div>
+</div>
+
+<script define:vars={{ productId: product.id, productName: product.name, productPrice: product.price, productImage: product.image }}>
+  // Global ProductCard manager for handling navigation
+  if (!window.productCardRegistry) {
+    window.productCardRegistry = new Map();
+  }
+
+  // Product card functionality
+  class ProductCardManager {
+    constructor(productId, productName, productPrice, productImage) {
+      this.productId = productId;
+      this.productName = productName;
+      this.productPrice = productPrice;
+      this.productImage = productImage;
+      this.isInitialized = false;
+      
+      // Register this instance globally
+      window.productCardRegistry.set(productId, this);
+      
+      // Initialize immediately
+      this.initialize();
+    }
+
+    initialize() {
+      if (this.isInitialized) {
+        return;
+      }
+
+      // Get DOM elements
+      const elements = this.getElements();
+      if (!elements) {
+        setTimeout(() => this.initialize(), 100);
+        return;
+      }
+
+      // Attach event listeners
+      this.attachEventListeners(elements);
+
+      // Check initial cart state
+      this.checkCartState();
+
+      this.isInitialized = true;
+    }
+
+    getElements() {
+      const addButton = document.getElementById(`add-to-cart-${this.productId}`);
+      const quantityControls = document.getElementById(`quantity-controls-${this.productId}`);
+      const minusButton = document.getElementById(`minus-${this.productId}`);
+      const plusButton = document.getElementById(`plus-${this.productId}`);
+      const removeButton = document.getElementById(`remove-${this.productId}`);
+      const quantitySpan = document.getElementById(`quantity-${this.productId}`);
+
+      if (!addButton || !quantityControls || !minusButton || !plusButton || !removeButton || !quantitySpan) {
+        return null;
+      }
+
+      return { addButton, quantityControls, minusButton, plusButton, removeButton, quantitySpan };
+    }
+
+    attachEventListeners(elements) {
+      const { addButton, minusButton, plusButton, removeButton } = elements;
+
+      // Remove existing listeners to prevent duplicates
+      addButton.replaceWith(addButton.cloneNode(true));
+      minusButton.replaceWith(minusButton.cloneNode(true));
+      plusButton.replaceWith(plusButton.cloneNode(true));
+      removeButton.replaceWith(removeButton.cloneNode(true));
+
+      // Get fresh references after cloning
+      const freshElements = this.getElements();
+      if (!freshElements) return;
+
+      const { addButton: freshAdd, minusButton: freshMinus, plusButton: freshPlus, removeButton: freshRemove } = freshElements;
+
+      // Add to cart
+      freshAdd.addEventListener('click', () => this.handleAddToCart());
+
+      // Minus button
+      freshMinus.addEventListener('click', () => this.handleMinus());
+
+      // Plus button
+      freshPlus.addEventListener('click', () => this.handlePlus());
+
+      // Remove button
+      freshRemove.addEventListener('click', () => this.handleRemove());
+    }
+
+    checkCartState() {
+      const cartStore = window.cartStore;
+      if (!cartStore) {
+        return;
+      }
+
+      try {
+        const isInCart = cartStore.isInCart(this.productId);
+        const quantity = cartStore.getItemQuantity(this.productId);
+        
+        const elements = this.getElements();
+        if (!elements) return;
+
+        const { addButton, quantityControls, quantitySpan } = elements;
+        
+        if (isInCart) {
+          addButton.classList.add('hidden');
+          quantityControls.classList.remove('hidden');
+          quantitySpan.textContent = quantity.toString();
+        } else {
+          addButton.classList.remove('hidden');
+          quantityControls.classList.add('hidden');
+        }
+      } catch (error) {
+        console.error(`ProductCard ${this.productId}: Error checking cart state:`, error);
+      }
+    }
+
+    handleAddToCart() {
+      const cartStore = window.cartStore;
+      
+      if (!cartStore) {
+        return;
+      }
+      
+      try {
+        cartStore.addItem({
+          id: this.productId,
+          name: this.productName,
+          price: this.productPrice,
+          image: this.productImage
+        }, 1);
+        this.checkCartState();
+      } catch (error) {
+        console.error('Error adding product:', error);
+      }
+    }
+
+    handleMinus() {
+      const cartStore = window.cartStore;
+      if (!cartStore) return;
+      
+      const currentQuantity = cartStore.getItemQuantity(this.productId);
+      if (currentQuantity > 1) {
+        cartStore.updateQuantity(this.productId, currentQuantity - 1);
+      } else {
+        cartStore.removeItem(this.productId);
+      }
+      this.checkCartState();
+    }
+
+    handlePlus() {
+      const cartStore = window.cartStore;
+      if (!cartStore) return;
+      
+      const currentQuantity = cartStore.getItemQuantity(this.productId);
+      cartStore.updateQuantity(this.productId, currentQuantity + 1);
+      this.checkCartState();
+    }
+
+    handleRemove() {
+      const cartStore = window.cartStore;
+      if (!cartStore) return;
+      
+      cartStore.removeItem(this.productId);
+      this.checkCartState();
+    }
+  }
+
+  // Create the product card manager
+  const productCard = new ProductCardManager(productId, productName, productPrice, productImage);
+
+  // Listen for cart updates
+  window.addEventListener('cart-updated', () => {
+    productCard.checkCartState();
+  });
+  
+  // Listen for navigation events to re-initialize if needed
+  const handleNavigation = () => {
+    if (!productCard.isInitialized || !productCard.getElements()) {
+      productCard.isInitialized = false;
+      productCard.initialize();
+    }
+  };
+  
+  // Listen for various navigation events
+  document.addEventListener('astro:page-load', handleNavigation);
+  document.addEventListener('astro:after-swap', handleNavigation);
+  window.addEventListener('focus', handleNavigation);
+  window.addEventListener('popstate', handleNavigation);
+</script>
