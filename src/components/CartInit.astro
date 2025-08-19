@@ -8,5 +8,15 @@
   // Make cart store available globally for Alpine.js
   if (typeof window !== 'undefined') {
     (window as any).cartStore = cartStore;
+    
+    // Initialize the cart store
+    cartStore.init();
+    
+    // Dispatch ready event after a short delay to ensure DOM is ready
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('cart-store-ready', {
+        detail: { items: cartStore.items }
+      }));
+    }, 100);
   }
 </script>
