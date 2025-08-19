@@ -1,0 +1,12 @@
+---
+// Cart Store Initialization Component
+---
+
+<script>
+  import { cartStore } from './CartStore.js';
+  
+  // Make cart store available globally for Alpine.js
+  if (typeof window !== 'undefined') {
+    (window as any).cartStore = cartStore;
+  }
+</script>
