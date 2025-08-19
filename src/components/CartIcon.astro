@@ -15,10 +15,16 @@
     isLoaded = true;
     
     // Listen for cart updates to refresh badge and state
-    window.addEventListener('cart-updated', () => {
+    window.addEventListener('cart-updated', (event) => {
       // Force Alpine.js to re-evaluate reactive properties
       this.$nextTick(() => {
-        // This will trigger a re-render of the badge
+        // Update items from the event detail if available
+        if (event.detail && event.detail.items) {
+          this.items = [...event.detail.items];
+        } else {
+          // Fallback: force reactivity update
+          this.items = [...this.items];
+        }
       });
     });
     
@@ -26,7 +32,20 @@
     window.addEventListener('force-cart-update', (event) => {
       // Force Alpine.js to re-evaluate reactive properties
       this.$nextTick(() => {
-        // Force update completed
+        if (event.detail && event.detail.items) {
+          this.items = [...event.detail.items];
+        } else {
+          this.items = [...this.items];
+        }
+      });
+    });
+    
+    // Listen for cart store ready
+    window.addEventListener('cart-store-ready', (event) => {
+      this.$nextTick(() => {
+        if (event.detail && event.detail.items) {
+          this.items = [...event.detail.items];
+        }
       });
     });
   "
