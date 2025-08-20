@@ -44,6 +44,24 @@ const { product } = Astro.props;
       {product.origin && (
         <div>مبدا: {product.origin}</div>
       )}
+      {product.roastLevel && (
+        <div>میزان برشته شدن: {product.roastLevel}</div>
+      )}
+      {product.bitterness && (
+        <div>تلخی: {product.bitterness}</div>
+      )}
+      {product.body && (
+        <div>غلظت (بادی): {product.body}</div>
+      )}
+      {product.acidity && (
+        <div>ترشی: {product.acidity}</div>
+      )}
+      {product.sweetness && (
+        <div>شیرینی: {product.sweetness}</div>
+      )}
+      
+      
+     
     </div>
     
     <!-- Price -->
