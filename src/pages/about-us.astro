@@ -10,9 +10,9 @@ import WideImage from "~/components/WideImage.astro";
 import {snapp} from "~/data/config";
 
 // Images
-import CoffeeBeans from "~/assets/images/coffeeBeans.jpg";
-import CoffeeWideImage from "~/assets/images/coffeWideImage.jpg";
-import Snapp from "~/assets/images/SnappLogo.svg";
+import CoffeeBeans from "~/assets/images/coffee-beans.avif";
+import CoffeeWideImage from "~/assets/images/coffee-wallpaper-001.avif";
+import Snapp from "~/assets/images/snapp-logo.svg";
 ---
 
 <Layout>
@@ -31,7 +31,7 @@ import Snapp from "~/assets/images/SnappLogo.svg";
 					class:list={" w-100"}
 					src={CoffeeBeans}
 					height={600}
-					formats={["avif", "webp"]}
+					formats={["avif", "webp", "jpeg"]}
 					alt="A description of my image."
 					loading={"eager"}
 					fetchpriority={"high"}

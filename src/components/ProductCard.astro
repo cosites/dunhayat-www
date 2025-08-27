@@ -1,5 +1,6 @@
 ---
 import type { Product } from "~/data/products";
+import { Picture } from "astro:assets";
 
 interface Props {
   product: Product;
@@ -24,10 +25,11 @@ const { product } = Astro.props;
 >
   <!-- Product Image -->
   <div class="mb-4">
-    <img
+    <Picture
       class="object-contain md:w-96 md:h-96 w-36 h-36"
       src={product.image}
       alt={product.name}
+      formats={["avif", "webp", "jpeg"]}
     />
   </div>
 

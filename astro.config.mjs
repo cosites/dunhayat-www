@@ -32,4 +32,15 @@ export default defineConfig({
 	experimental: {
 		svg: true,
 	},
+	vite: {
+		build: {
+			assetsDir: 'assets',
+			rollupOptions: {
+				output: {
+					assetFileNames: 'assets/[name].[hash].[ext]'
+				}
+			}
+		},
+		assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.svg', '**/*.webp', '**/*.avif']
+	}
 });

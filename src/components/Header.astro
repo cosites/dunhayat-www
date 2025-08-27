@@ -1,6 +1,6 @@
 ---
 import { menuMain } from "~/data/menus.js";
-import Logo from "~/assets/images/LOGO.svg";
+import Logo from "~/assets/images/logo.svg";
 import { Picture, Image } from "astro:assets";
 import CartIcon from "./CartIcon.astro";
 
@@ -17,7 +17,7 @@ const pathname = rmTrailingSlash(Astro.url.pathname);
 	<div class="container py-6">
 		<nav class="flex items-center justify-between" aria-label="Global">
 			<a href="/" class="-m-1.5 p-1.5">
-				<Picture src={Logo} alt="Logo" class="w-auto h-24" />
+				<Picture src={Logo} alt="Logo" class="w-auto h-24" formats={["avif", "webp", "jpeg"]} />
 			</a>
 			<div class="flex lg:hidden">
 				<button
@@ -70,7 +70,7 @@ const pathname = rmTrailingSlash(Astro.url.pathname);
 			>
 				<div class="flex items-center justify-between">
 					<a href="/" class="-m-1.5 p-1.5">
-						<Picture src={Logo} alt="Logo" class="w-auto h-24" />
+						<Picture src={Logo} alt="Logo" class="w-auto h-24" formats={["avif", "webp", "jpeg"]} />
 					</a>
 					<button type="button" class="-m-2.5 p-2.5 text-brand-darkbrown" @click="open = false">
 						<span class="sr-only">Close menu</span>
