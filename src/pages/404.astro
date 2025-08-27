@@ -2,32 +2,74 @@
 import Layout from "~/layouts/Layout.astro";
 import Section from "~/components/Section.astro";
 import Button from "~/components/Button.astro";
+import { Picture } from "astro:assets";
+import CoffeeBean from "~/assets/images/coffee-bean.svg";
 ---
 
-
+<Layout pageTitle="صفحه یافت نشد - دنهایت قهوه" title="صفحه یافت نشد" description="صفحه‌ای که به دنبال آن هستید وجود ندارد. بیایید شما را به لذت بردن از قهوه‌های مرغوب ما برگردانیم.">
 	<Section>
-		<div class="min-h-full mx-auto w-full max-w-6xl">
-			<div class="text-center">
-				<p class="font-bold text-brand-red text-8xl">404</p>
-				<h1 class="mt-8 text-4xl font-black text-balance lg:text-5xl">This page could not be found.</h1>
-				<p class="mt-6 text-base text-balance">You may have mistyped the address or the page may have moved.</p>
-				<div class="mt-16">
-					<a href="/" class="button">
+		<div class="min-h-[70vh] mx-auto w-full max-w-6xl flex flex-col items-center justify-center">
+			<div class="text-center max-w-3xl">
+				<!-- Coffee beans decorative image -->
+				<div class="mb-8">
+					<Picture 
+						src={CoffeeBean} 
+						alt="دانه قهوه"
+						class="w-32 h-32 mx-auto" 
+						formats={["svg"]} 
+					/>
+				</div>
+				
+				<!-- Main heading -->
+				<h1 class="mb-6 text-4xl font-black text-balance lg:text-6xl text-brand-brown">
+					اوه! این صفحه در قهوه گم شده
+				</h1>
+				
+				<!-- Description -->
+				<p class="mb-8 text-lg text-balance text-gray-600 max-w-2xl mx-auto">
+					صفحه‌ای که به دنبال آن هستید به نظر می‌رسد گم شده، درست مثل آن دانه قهوه آخر که زیر کانتر غلتید. 
+					نگران نباشید - ما قهوه‌های عالی زیادی داریم که در خانه منتظر شما هستند!
+				</p>
+				
+				<!-- Action buttons -->
+				<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+					<Button url="/" color="brown">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 20 20"
 							fill="currentColor"
-							class="size-4 inline-block -mt-0.5 mr-1"
+							class="size-5 inline-block -mt-0.5 ml-2"
 						>
 							<path
 								fill-rule="evenodd"
 								d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z"
 								clip-rule="evenodd"></path>
 						</svg>
-						Go back home
-					</a>
+						بازگشت به خانه
+					</Button>
+					
+					<Button url="/products" color="sand">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 20 20"
+							fill="currentColor"
+							class="size-5 inline-block -mt-0.5 ml-2"
+						>
+							<path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+						</svg>
+						مشاهده محصولات
+					</Button>
+				</div>
+				
+				<!-- Additional help text -->
+				<div class="mt-12 pt-8 border-t border-gray-200">
+					<p class="text-sm text-gray-500">
+						نیاز به کمک دارید؟ <a href="/about-us" class="text-brand-brown hover:text-brand-brown/80 underline">با ما تماس بگیرید</a> یا 
+						<a href="/products" class="text-brand-brown hover:text-brand-brown/80 underline">محصولات قهوه ما را کاوش کنید</a>
+					</p>
 				</div>
 			</div>
 		</div>
 	</Section>
+</Layout>
 
