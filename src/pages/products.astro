@@ -3,8 +3,9 @@ import Layout from "~/layouts/Layout.astro";
 import Section from "~/components/Section.astro";
 import Heading from "~/components/Heading.astro";
 import ProductCard from "~/components/ProductCard.astro";
-import Grid from "~/components/Grid.astro";
-import { products } from "~/data/products";
+import {api} from "../lib/api";
+
+const products = await api.listProducts();
 ---
 
 <Layout pageTitle="محصولات - دان حیات" title="محصولات" description="محصولات قهوه دان حیات">

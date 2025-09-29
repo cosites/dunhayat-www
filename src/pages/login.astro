@@ -1,0 +1,44 @@
+---
+import "~/styles/tailwind.css";
+import { siteLang, themeColor } from "~/data/config";
+import LoginForm from "../components/LoginForm.svelte";
+
+const pageTitle ="ورود به حساب کاربری - دان حیات"
+const title="ورود به حساب کاربری"
+const description="ورود به حساب کاربری"
+---
+<!doctype html>
+<html lang={siteLang}>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content={themeColor} />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index,follow" />
+    <meta name="googlebot" content="index,follow" />
+    <link rel="author" href="humans.txt" />
+
+    <link
+            rel="stylesheet"
+            href="/fonts/fontawesome/css/all.css"
+    />
+
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="WP Infusion" />
+    <meta property="og:locale" content={siteLang} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:url" content={Astro.url} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <title>{pageTitle}</title>
+</head>
+<body>
+<main>
+    <LoginForm client:load />
+</main>
+</body>
+</html>

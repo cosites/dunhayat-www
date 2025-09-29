@@ -29,10 +29,20 @@ export default defineConfig({
 	devToolbar: {
 		enabled: false,
 	},
-	experimental: {
-		svg: true,
-	},
+// 	experimental: {
+// 		svg: true,
+// 	},
 	vite: {
+          server: {
+              proxy: {
+                '/api': {
+                  target: 'https://dunhayat.coffee',
+                  changeOrigin: true,
+                  secure: true,
+                  rewrite: (path) => path.replace(/^\/api/, '/api'),
+                },
+              },
+            },
 		build: {
 			assetsDir: 'assets',
 			rollupOptions: {

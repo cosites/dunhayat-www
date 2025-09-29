@@ -1,0 +1,17 @@
+---
+import PaymentReturn from '~/components/PaymentReturn.svelte';
+import Layout from "~/layouts/Layout.astro";
+import Section from "~/components/Section.astro";
+import Heading from "~/components/Heading.astro";
+---
+
+<Layout pageTitle="محصولات - دان حیات" title="محصولات" description="محصولات قهوه دان حیات">
+    <Section class:list={"bg-white"}>
+        <Heading>
+        </Heading>
+
+        <div class="container mx-auto px-4">
+            <PaymentReturn client:load/>
+        </div>
+    </Section>
+</Layout>

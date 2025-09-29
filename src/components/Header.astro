@@ -1,110 +1,214 @@
 ---
-import { menuMain } from "~/data/menus.js";
+import {menuMain} from "~/data/menus.js";
 import Logo from "~/assets/images/logo.svg";
-import { Picture, Image } from "astro:assets";
+import {Picture, Image} from "astro:assets";
 import CartIcon from "./CartIcon.astro";
 
 const rmTrailingSlash = (path: string): string => {
-  return path.endsWith("/") && path.length > 1 
-    ? path.slice(0, path.length - 1) 
-    : path;
+    return path.endsWith("/") && path.length > 1
+        ? path.slice(0, path.length - 1)
+        : path;
 }
 
 const pathname = rmTrailingSlash(Astro.url.pathname);
+const redirectPath = encodeURIComponent(Astro.request.url);
 ---
 
 <header x-data="{ open: false }" @keydown.window.escape="open = false">
-	<div class="container py-6">
-		<nav class="flex items-center justify-between" aria-label="Global">
-			<a href="/" class="-m-1.5 p-1.5">
-				<Picture src={Logo} alt="Logo" class="w-auto h-24" formats={["avif", "webp", "jpeg"]} />
-			</a>
-			<div class="flex lg:hidden">
-				<button
-					type="button"
-					class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5"
-					@click="open = true"
-				>
-					<span class="sr-only">Open main menu</span>
-					<svg
-						class="size-8 text-brand-brown"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke-width="1.5"
-						stroke="currentColor"
-						aria-hidden="true"
-						data-slot="icon"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
-					</svg>
-				</button>
-			</div>
-			<div class="hidden lg:flex lg:gap-x-12 lg:items-center">
-				{
-					menuMain.map((item) => (
-						<a
-							href={item.url}
-							class={`transition text-base/6 font-semibold hover:text-brand-brown ${item.highlighted ? "menu-item-highlighted" : ""} ${pathname === item.url ? "menu-item-active" : ""}`}
-						>
-							{item.name}
-						</a>
-					))
-				}
-				<CartIcon />
-			</div>
-		</nav>
-		<div class="lg:hidden" x-ref="dialog" x-show="open" x-cloak aria-modal="true">
-			<div
-				class="fixed inset-0 z-50 w-full overflow-y-auto bg-white px-8 py-6"
-				x-show="open"
-				x-transition:enter="transition ease-out"
-				x-transition:enter-start="opacity-0"
-				x-transition:enter-end="opacity-100"
-				x-transition:leave="transition ease-in"
-				x-transition:leave-start="opacity-100"
-				x-transition:leave-end="opacity-0"
-				x-cloak
-			>
-				<div class="flex items-center justify-between">
-					<a href="/" class="-m-1.5 p-1.5">
-						<Picture src={Logo} alt="Logo" class="w-auto h-24" formats={["avif", "webp", "jpeg"]} />
-					</a>
-					<button type="button" class="-m-2.5 p-2.5 text-brand-darkbrown" @click="open = false">
-						<span class="sr-only">Close menu</span>
-						<svg
-							class="size-8"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke-width="2"
-							stroke="currentColor"
-							aria-hidden="true"
-							data-slot="icon"
-						>
-							<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
-						</svg>
-					</button>
-				</div>
-				<div class="mt-6 flow-root">
-					<div class="-my-6 divide-y divide-gray-500/10">
-						<div class="space-y-2 py-6 mt-16">
-							{
-								menuMain.map((item) => (
-									<a
-										@click="open = false"
-										href={item.url}
-										class={`block py-2 text-center font-semibold text-3xl ${item.highlighted ? "menu-item-highlighted w-max mx-auto !px-8 !py-2" : ""} ${pathname === item.url ? "menu-item-active" : ""}`}
-									>
-										{item.name}
-									</a>
-								))
-							}
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container py-6">
+        <nav class="flex items-center justify-between" aria-label="Global">
+            <a href="/" class="-m-1.5 p-1.5">
+                <Picture src={Logo} alt="Logo" class="w-auto h-24" formats={["avif", "webp", "jpeg"]}/>
+            </a>
+            <div class="flex gap-4 items-center lg:hidden">
+                <ng-container class="text-brand-brown">
+                    <a id="login-btn" href={`/login?redirect=${redirectPath}`} class="flex items-center gap-2 font-bold"
+                       aria-label="Log in">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M8 7l-5 5 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                  stroke-linejoin="round"/>
+                            <path d="M3 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                  stroke-linejoin="round"/>
+                            <path d="M12 5V3h7a2 2 0 012 2v14a2 2 0 01-2 2h-7v-2" stroke="currentColor" stroke-width="1.8"
+                                  stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>ورود</span>
+                    </a>
+
+                    <a id="logout-btn" style="display:none; cursor:pointer" class="flex items-center gap-2 font-bold"
+                       aria-label="Log out">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M16 17l5-5-5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                  stroke-linejoin="round"/>
+                            <path d="M21 12H9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                  stroke-linejoin="round"/>
+                            <path d="M12 19v2H5a2 2 0 01-2-2V5a2 2 0 012-2h7v2" stroke="currentColor" stroke-width="1.8"
+                                  stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>خروج</span>
+                    </a>
+                </ng-container>
+                <button
+                        type="button"
+                        class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5"
+                        @click="open = true"
+                >
+                    <span class="sr-only">Open main menu</span>
+                    <svg
+                            class="size-8 text-brand-brown"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            aria-hidden="true"
+                            data-slot="icon"
+                    >
+                        <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="hidden lg:flex lg:gap-x-12 lg:items-center">
+                {
+                    menuMain.map((item) => (
+                            <a
+                                    href={item.url}
+                                    class={`transition text-base/6 font-semibold hover:text-brand-brown ${item.highlighted ? "menu-item-highlighted" : ""} ${pathname === item.url ? "menu-item-active" : ""}`}
+                            >
+                                {item.name}
+                            </a>
+                    ))
+                }
+                <ng-container class="hover:text-brand-brown">
+                    <a id="login-btn" href={`/login?redirect=${redirectPath}`} class="flex items-center gap-2 font-bold"
+                       aria-label="Log in">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M8 7l-5 5 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                  stroke-linejoin="round"/>
+                            <path d="M3 12h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                  stroke-linejoin="round"/>
+                            <path d="M12 5V3h7a2 2 0 012 2v14a2 2 0 01-2 2h-7v-2" stroke="currentColor"
+                                  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>ورود</span>
+                    </a>
+
+                    <a id="logout-btn" style="display:none; cursor:pointer" class="flex items-center gap-2 font-bold"
+                       aria-label="Log out">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M16 17l5-5-5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                  stroke-linejoin="round"/>
+                            <path d="M21 12H9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                  stroke-linejoin="round"/>
+                            <path d="M12 19v2H5a2 2 0 01-2-2V5a2 2 0 012-2h7v2" stroke="currentColor" stroke-width="1.8"
+                                  stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>خروج</span>
+                    </a>
+                </ng-container>
+                <CartIcon/>
+            </div>
+
+        </nav>
+
+            <div class="lg:hidden" x-ref="dialog" x-show="open" x-cloak aria-modal="true">
+                <div
+                        class="fixed inset-0 z-50 w-full overflow-y-auto bg-white px-8 py-6"
+                        x-show="open"
+                        x-transition:enter="transition ease-out"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition ease-in"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        x-cloak
+                >
+                    <div class="flex items-center justify-between">
+                        <a href="/" class="-m-1.5 p-1.5">
+                            <Picture src={Logo} alt="Logo" class="w-auto h-24" formats={["avif", "webp", "jpeg"]}/>
+                        </a>
+                        <button type="button" class="-m-2.5 p-2.5 text-brand-darkbrown" @click="open = false">
+                            <span class="sr-only">Close menu</span>
+                            <svg
+                                    class="size-8"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="2"
+                                    stroke="currentColor"
+                                    aria-hidden="true"
+                                    data-slot="icon"
+                            >
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="mt-6 flow-root">
+                        <div class="-my-6 divide-y divide-gray-500/10">
+                            <div class="space-y-2 py-6 mt-16">
+                                {
+                                    menuMain.map((item) => (
+                                            <a
+                                                    @click="open = false"
+                                                    href={item.url}
+                                                    class={`block py-2 text-center font-semibold text-3xl ${item.highlighted ? "menu-item-highlighted w-max mx-auto !px-8 !py-2" : ""} ${pathname === item.url ? "menu-item-active" : ""}`}
+                                            >
+                                                {item.name}
+                                            </a>
+                                    ))
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
 </header>
+
+<script>
+    import {api} from "../lib/api";
+
+    function getToken() {
+        return typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+    }
+
+    function setUI(isLogged, loginBtn, logoutBtn) {
+        if (!loginBtn || !logoutBtn) return;
+        loginBtn.style.display = isLogged ? 'none' : 'flex';
+        logoutBtn.style.display = isLogged ? 'flex' : 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+
+        console.log('buttons:', loginBtn, logoutBtn);
+        const token = getToken();
+        console.log('token:', token);
+        setUI(!!(token && token.trim()), loginBtn, logoutBtn);
+
+        logoutBtn?.addEventListener('click', async (e) => {
+            e.preventDefault();
+            logoutBtn.setAttribute('aria-busy', 'true');
+            try {
+                await api.logout();
+            } catch (err) {
+                console.warn('logout failed', err);
+            }
+            localStorage.removeItem('token');
+            localStorage.removeItem('user_id');
+            try {
+                const mod = await import('/src/lib/auth');
+                if (mod?.setToken) mod.setToken(null, null);
+            } catch (_) {
+            }
+            setUI(false, loginBtn, logoutBtn);
+            window.location.href = '/';
+        });
+
+        window.addEventListener('storage', (ev) => {
+            if (ev.key === 'token') setUI(!!ev.newValue, loginBtn, logoutBtn);
+        });
+    });
+</script>

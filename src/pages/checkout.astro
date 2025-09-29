@@ -1,0 +1,16 @@
+---
+import Checkout from '~/components/Checkout.svelte';
+import Layout from "~/layouts/Layout.astro";
+import Section from "~/components/Section.astro";
+import Heading from "~/components/Heading.astro";
+---
+
+<Layout pageTitle="تکمیل خرید - دان حیات" title="تکمیل خرید" description="تکمیل خرید قهوه دان حیات">
+    <div class="container mx-auto px-4 py-14">
+        <Heading>
+            <h4 slot="heading-title" class="font-black text-brand-brown h3">تکمیل خرید</h4>
+        </Heading>
+
+        <Checkout client:load />
+    </div>
+</Layout>
